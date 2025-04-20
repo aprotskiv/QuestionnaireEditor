@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+		<AssemblyName>AProtskiv.QuestionnaireEditor</AssemblyName>
+		<StartupObject>QuestionnaireEditorHDCCS.App</StartupObject>
+		<ApplicationIcon>Images\questionnaire256.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version>1.0.0.0</Version>
+		<Company>Andrii Protskiv &amp; Kru Nuch</Company>
+		<Copyright>Andrii Protskiv 2025
+This applications has been designed using images from Flaticon.com
+		</Copyright>
+		<ProductName>HDCCS Questionnaire Editor</ProductName>
+		<Description>Questionnaire Editor for Hash Data and Criteria Comparison Services (HDCCS)</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Images\answer.png" />
+		<None Remove="Images\answer32.png" />
+		<None Remove="Images\category.png" />
+		<None Remove="Images\home.png" />
+		<None Remove="Images\home2.png" />
+		<None Remove="Images\home3.png" />
+		<None Remove="Images\question-mark32.png" />
+		<None Remove="Images\question16.png" />
+		<None Remove="Images\questionnaire16.png" />
+		<None Remove="Images\questionnaire32.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Images\questionnaire256.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AProtskiv.Questionnaires" Version="1.0.0" />
+		<PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- https://github.com/aprotskiv/PropertyTools/ (fork of https://github.com/PropertyTools/PropertyTools) -->
+		<ProjectReference Include="..\..\..\PropertyTools\Source\PropertyTools.Wpf\PropertyTools.Wpf.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Resources\PropertyGrid_LocalizedStrings.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>PropertyGrid_LocalizedStrings.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\PropertyGrid_LocalizedStrings.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>PropertyGrid_LocalizedStrings.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Images\answer.png" />
+		<Resource Include="Images\answer32.png" />
+		<Resource Include="Images\category.png" />
+		<Resource Include="Images\home.png" />
+		<Resource Include="Images\home2.png" />
+		<Resource Include="Images\home3.png" />
+		<Resource Include="Images\question-mark32.png" />
+		<Resource Include="Images\question16.png" />
+		<Resource Include="Images\questionnaire16.png" />
+		<Resource Include="Images\questionnaire32.png" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,223 @@
+﻿<Window x:Class="QuestionnaireEditorHDCCS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:pt="http://propertytools.org/wpf"
+        xmlns:local="clr-namespace:QuestionnaireEditorHDCCS"
+        xmlns:qeVM="clr-namespace:QuestionnaireEditorHDCCS.ViewModels"
+        xmlns:qeVM_Nodes="clr-namespace:QuestionnaireEditorHDCCS.ViewModels.Nodes" 
+        xmlns:controls="clr-namespace:QuestionnaireEditorHDCCS.Controls" 
+        xmlns:converters="clr-namespace:QuestionnaireEditorHDCCS.Converters"
+        mc:Ignorable="d"
+        Title="Questionnaire Editor" 
+        Height="450" 
+        Width="800"        
+        WindowStartupLocation="CenterScreen"
+        >
+
+    <Window.Resources>
+
+        <converters:QestionareeSourceConverter x:Key="QestionareeSourceConverter"
+                                    QuestionImage="Images\question16.png"
+                                    QestionareeImage="Images\questionnaire16.png"
+                                    />
+
+
+        <DataTemplate DataType="{x:Type qeVM_Nodes:NodeViewModel}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <pt:Bitmap Grid.Column="0" 
+                           Margin="0 0 4 0"
+                           MinWidth="16"
+                           MinHeight="16"
+                           Source="{Binding Tag, Converter={StaticResource QestionareeSourceConverter}}"
+                           />
+                
+                <pt:EditableTextBlock Grid.Column="1" 
+                                      Text="{Binding Name}" 
+                                      IsEditing="{Binding IsEditing}"
+                                      Padding="4 0 0 0 "/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="QuestionnaireHeaderTemplate">
+            <StackPanel Orientation="Horizontal">
+                <pt:Bitmap Source="Images\home.png"/>
+                <TextBlock Text="{Binding}" Margin="4 0 0 0"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="AnswerOptionsHeaderTemplate">
+            <StackPanel Orientation="Horizontal">
+                <pt:Bitmap Source="Images\answer32.png" />
+                <TextBlock Text="{Binding}" Margin="4 0 0 0"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="QuestionOptionsHeaderTemplate">
+            <StackPanel Orientation="Horizontal">
+                <pt:Bitmap Source="Images\question-mark32.png" />
+                <TextBlock Text="{Binding}" Margin="4 0 0 0"/>
+            </StackPanel>
+        </DataTemplate>
+
+
+        <DataTemplate x:Key="CategoryHeaderTemplate1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <pt:Bitmap Source="{Binding Icon}"/>
+                <TextBlock Grid.Column="1" Text="{Binding Header}" Margin="4 0 0 0" FontWeight="Bold"/>
+            </Grid>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:MainWindow.RoutedUICommand_CreateGuid}"
+                Executed="CreateGuid_Click"/>
+        <CommandBinding Command="{x:Static local:MainWindow.RoutedUICommand_AddQuestion}"
+                Executed="AddQuestion_Click"/>
+        <CommandBinding Command="{x:Static local:MainWindow.RoutedUICommand_RemoveQuestion}"
+                Executed="RemoveQuestion_Click"/>
+    </Window.CommandBindings>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="_New"
+                          Command="{Binding NewFileCommand}"/>
+                <Separator/>
+                
+                <MenuItem Header="Demo"
+                        Command="{Binding DemoFileCommand}"/>                
+                <Separator/>
+                
+                <MenuItem Header="_Open"
+                          Command="{Binding OpenFileCommand}"/>                
+                <Separator/>
+                
+                <MenuItem Header="_Save"
+                          Command="{Binding SaveFileCommand}"/>
+                <Separator/>
+                
+                <MenuItem Header="E_xit" 
+                          Command="{Binding ExitCommand}"/>
+            </MenuItem>
+            
+            <MenuItem Header="Edit">
+                <MenuItem Header="Add Question"                           
+                   InputGestureText="CTRL+Q"                          
+                   Command="{Binding AddQuestionCommand}"
+                          />
+                <MenuItem Header="Remove Question"                    
+                   InputGestureText="CTRL+W"
+                   Command="{Binding RemoveQuestionCommand}"
+                   CommandParameter="{Binding SelectedNode}"
+                        />
+            </MenuItem>
+            
+            <MenuItem Header="Tools">
+                <MenuItem Header="Create GUID"                           
+                          InputGestureText="CTRL+~"                          
+                          Command="{Binding CreateGuidCommand}"/>
+                
+                <MenuItem Header="Options..." 
+                          Command="{Binding OptionsCommand}"/>                
+            </MenuItem>
+            
+            <MenuItem Header="Help">
+                <MenuItem Header="About..." 
+                          Command="{Binding AboutCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <StatusBar DockPanel.Dock="Bottom">
+            <TextBlock Text="{Binding StatusMessage}"/>
+        </StatusBar>
+
+        <pt:TreeListBox 
+            DockPanel.Dock="Left"
+            x:Name="tree1" 
+            Indentation="12" 
+            HierarchySource="{Binding Root}"
+            BorderThickness="0"
+            Width="500"
+            pt:TreeListBoxDragDropHelper.IsDragSource="True" 
+            pt:TreeListBoxDragDropHelper.IsDropTarget="True"
+            
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedNode}"
+            
+            KeyDown="tree1_KeyDown_1">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add Question"
+                              Command="{Binding AddQuestionCommand}"
+                              />
+                    <MenuItem Header="Remove Question"
+                              Command="{Binding RemoveQuestionCommand}"
+                              />
+
+
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </pt:TreeListBox>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" MinHeight="150" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <ScrollViewer>
+                <pt:PropertyGrid 
+                    Grid.Row="0"
+                    Margin="8"
+                    SelectedObject="{Binding SelectedNode.Tag}"
+                    Operator="{Binding PropertyGridOperator}"
+                    ControlFactory="{Binding PropertyGridControlFactory}"
+                    CategoryHeaderTemplate="{StaticResource QuestionnaireHeaderTemplate}"
+                    />    
+            </ScrollViewer>
+            
+
+            <ScrollViewer
+                 Grid.Row="1"
+                 Height="Auto" 
+                >
+                <StackPanel>
+                    <pt:PropertyGrid             
+                        Margin="8"                     
+                        SelectedObject="{Binding SelectedNode.Tag.QuestionOptionsWrapper}"                 
+                        Visibility="{Binding SelecteQuestion_QuestionOptionsVisibility}"
+                        Operator="{Binding PropertyGridOperator}" 
+                        ControlFactory="{Binding PropertyGridControlFactory}"
+                        CategoryHeaderTemplate="{StaticResource QuestionOptionsHeaderTemplate}"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          />
+
+                    <pt:PropertyGrid                     
+                        Margin="8"                    
+                        SelectedObject="{Binding SelectedNode.Tag.AnswerOptionsWrapper}"                
+                        Visibility="{Binding SelecteQuestion_AnswerOptionsVisibility}"
+                        Operator="{Binding PropertyGridOperator}"    
+                        ControlFactory="{Binding PropertyGridControlFactory}"
+                        CategoryHeaderTemplate="{StaticResource AnswerOptionsHeaderTemplate}"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        
+                         />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        
+    </DockPanel>
+    
+</Window>
