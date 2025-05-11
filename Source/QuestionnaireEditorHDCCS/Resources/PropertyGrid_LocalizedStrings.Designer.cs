@@ -70,6 +70,15 @@ namespace QuestionnaireEditorHDCCS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt; Multiple Choice Question &gt;.
+        /// </summary>
+        internal static string AProtskiv_Questionnaires_QuestionKind_Multiple_Choice {
+            get {
+                return ResourceManager.GetString("AProtskiv.Questionnaires.QuestionKind.Multiple Choice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authors.
         /// </summary>
         internal static string Authors {
@@ -156,15 +165,6 @@ namespace QuestionnaireEditorHDCCS.Resources {
         internal static string OptionId {
             get {
                 return ResourceManager.GetString("OptionId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt; Multiple Choice Question &gt;.
-        /// </summary>
-        internal static string QuestionKind_MultipleChoiceQuestion {
-            get {
-                return ResourceManager.GetString("QuestionKind.MultipleChoiceQuestion", resourceCulture);
             }
         }
         

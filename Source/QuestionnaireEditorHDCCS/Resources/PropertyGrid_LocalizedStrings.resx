@@ -120,6 +120,9 @@
   <data name="AnswerOptionsWrapper" xml:space="preserve">
     <value>Answer Options</value>
   </data>
+  <data name="AProtskiv.Questionnaires.QuestionKind.Multiple Choice" xml:space="preserve">
+    <value>&lt; Multiple Choice Question &gt;</value>
+  </data>
   <data name="Authors" xml:space="preserve">
     <value>Authors</value>
   </data>
@@ -149,9 +152,6 @@
   </data>
   <data name="OptionId" xml:space="preserve">
     <value>Id (non-translatable)</value>
-  </data>
-  <data name="QuestionKind.MultipleChoiceQuestion" xml:space="preserve">
-    <value>&lt; Multiple Choice Question &gt;</value>
   </data>
   <data name="QuestionnairePT" xml:space="preserve">
     <value>Questionnaire</value>

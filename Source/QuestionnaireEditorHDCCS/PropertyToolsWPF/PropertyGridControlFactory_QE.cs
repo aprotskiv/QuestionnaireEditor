@@ -1,5 +1,4 @@
 ﻿using PropertyTools.Wpf;
-using System.Windows.Controls.Primitives;
 
 namespace QuestionnaireEditorHDCCS.PropertyToolsWPF
 {

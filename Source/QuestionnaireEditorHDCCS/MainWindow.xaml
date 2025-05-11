@@ -9,6 +9,7 @@
         xmlns:qeVM_Nodes="clr-namespace:QuestionnaireEditorHDCCS.ViewModels.Nodes" 
         xmlns:controls="clr-namespace:QuestionnaireEditorHDCCS.Controls" 
         xmlns:converters="clr-namespace:QuestionnaireEditorHDCCS.Converters"
+        xmlns:propertytoolswpf="clr-namespace:QuestionnaireEditorHDCCS.PropertyToolsWPF"
         mc:Ignorable="d"
         Title="Questionnaire Editor" 
         Height="450" 
@@ -17,6 +18,8 @@
         >
 
     <Window.Resources>
+
+        <propertytoolswpf:CustomLocalizableOperator_QE x:Key="CustomLocalizableOperator" />
 
         <converters:QestionareeSourceConverter x:Key="QestionareeSourceConverter"
                                     QuestionImage="Images\question16.png"
@@ -183,6 +186,7 @@
                     Margin="8"
                     SelectedObject="{Binding SelectedNode.Tag}"
                     Operator="{Binding PropertyGridOperator}"
+                    LocalizableOperator="{StaticResource CustomLocalizableOperator}"
                     ControlFactory="{Binding PropertyGridControlFactory}"
                     CategoryHeaderTemplate="{StaticResource QuestionnaireHeaderTemplate}"
                     />    
@@ -199,6 +203,7 @@
                         SelectedObject="{Binding SelectedNode.Tag.QuestionOptionsWrapper}"                 
                         Visibility="{Binding SelecteQuestion_QuestionOptionsVisibility}"
                         Operator="{Binding PropertyGridOperator}" 
+                        LocalizableOperator="{StaticResource CustomLocalizableOperator}"
                         ControlFactory="{Binding PropertyGridControlFactory}"
                         CategoryHeaderTemplate="{StaticResource QuestionOptionsHeaderTemplate}"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -209,6 +214,7 @@
                         SelectedObject="{Binding SelectedNode.Tag.AnswerOptionsWrapper}"                
                         Visibility="{Binding SelecteQuestion_AnswerOptionsVisibility}"
                         Operator="{Binding PropertyGridOperator}"    
+                        LocalizableOperator="{StaticResource CustomLocalizableOperator}"
                         ControlFactory="{Binding PropertyGridControlFactory}"
                         CategoryHeaderTemplate="{StaticResource AnswerOptionsHeaderTemplate}"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
